@@ -41,7 +41,7 @@ docker compose -f infra/docker/docker-compose.yml exec -T actions-service npx pr
 Write-Host ""
 Write-Host "✅ Démarrage Full-Docker terminé !" -ForegroundColor Green
 Write-Host "========================================================" -ForegroundColor Cyan
-Write-Host "👉 Dashboard Web : http://localhost:3000" -ForegroundColor White
+Write-Host "👉 Dashboard Web : http://localhost:3002" -ForegroundColor White
 Write-Host "👉 API (Backend) : http://localhost:4000/api/health" -ForegroundColor White
 Write-Host "👉 Assistant Bot : Connecté en arrière-plan" -ForegroundColor White
 Write-Host "========================================================" -ForegroundColor Cyan
