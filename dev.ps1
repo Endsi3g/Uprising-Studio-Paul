@@ -11,14 +11,14 @@ Write-Host "========================================================" -Foregroun
 Write-Host ""
 
 # 1. Démarrage de Docker (Postgres & Ollama)
-Write-Host "[1/4] 🐳 Démarrage des conteneurs (Postgres & Ollama)..." -ForegroundColor Yellow
+Write-Host "[1/4] Démarrage des conteneurs (Postgres & Ollama)..." -ForegroundColor Yellow
 docker-compose -f infra/docker/docker-compose.yml up -d postgres ollama
 
 Write-Host "Attente de l'initialisation de la base de données ($($DB_WAIT_TIME)s)..." -ForegroundColor DarkGray
 Start-Sleep -Seconds $DB_WAIT_TIME
 
 # 2. Migrations Prisma
-Write-Host "[2/4] 🗄️ Vérification et application des migrations Prisma..." -ForegroundColor Yellow
+Write-Host "[2/4] Vérification et application des migrations Prisma..." -ForegroundColor Yellow
 Push-Location services\actions-service
 # npm install (au cas où ce n'est pas fait)
 npm install --silent
@@ -28,7 +28,7 @@ npx prisma generate --schema=../../db/schema.prisma
 Pop-Location
 
 # 3. Démarrage des services Node.js (API, Web)
-Write-Host "[3/4] ⚙️ Démarrage des services (API, Web)..." -ForegroundColor Yellow
+Write-Host "[3/4] Démarrage des services (API, Web)..." -ForegroundColor Yellow
 
 # Démarrer Actions Service (API) sur le port $API_PORT
 Start-Process pwsh -ArgumentList "-NoExit -Title `"Paul API (Actions Service)`" -Command `"cd services/actions-service ; title 'Paul API (Actions Service)' ; npm run dev`""
@@ -38,7 +38,7 @@ Write-Host "💡 Note: Onyx (Web Console) doit être lancé via son système Doc
 
 # 4. Choix de l'agent (NanoClaw ou OpenClaw)
 Write-Host ""
-Write-Host "🤖 [4/4] Quel agent souhaitez-vous lancer ?" -ForegroundColor Yellow
+Write-Host "[4/4] Quel agent souhaitez-vous lancer ?" -ForegroundColor Yellow
 Write-Host "1) NanoClaw (Local - Discord Bot)"
 Write-Host "2) OpenClaw (Cloud - $OPENCLAW_MODEL)"
 $choice = Read-Host "Votre choix [1/2] (Défaut: 1)"
