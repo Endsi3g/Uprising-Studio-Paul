@@ -1,8 +1,8 @@
-# Script de démarrage FULL DOCKER pour Project Paul
+# Script de démarrage FULL DOCKER pour Uprising AI Assistant
 # Lance TOUTE l'infrastructure (DB, Ollama, API, Web, Bot) dans Docker.
 
 Write-Host "========================================================" -ForegroundColor Cyan
-Write-Host "🐳 Démarrage FULL DOCKER de Paul (Uprising Studio)..." -ForegroundColor Cyan
+Write-Host "🐳 Démarrage FULL DOCKER de l'Assistant AI (Uprising Studio)..." -ForegroundColor Cyan
 Write-Host "========================================================" -ForegroundColor Cyan
 Write-Host ""
 
@@ -39,7 +39,7 @@ Write-Host "[4/4] 🗄️ Application des migrations Prisma dans le conteneur AP
 docker compose -f infra/docker/docker-compose.yml exec -T actions-service npx prisma migrate deploy
 
 Write-Host ""
-Write-Host "✅ Démarrage Full-Docker terminé !" -ForegroundColor Green
+Write-Host "✅ Démarrage de l'Assistant Assistant terminé !" -ForegroundColor Green
 Write-Host "========================================================" -ForegroundColor Cyan
 Write-Host "👉 Dashboard Web : http://localhost:3002" -ForegroundColor White
 Write-Host "👉 API (Backend) : http://localhost:4000/api/health" -ForegroundColor White

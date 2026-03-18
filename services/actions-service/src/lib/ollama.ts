@@ -183,7 +183,7 @@ export async function generateEmailDraft(
     prompt: `Rédige un email professionnel en ${language} pour ${clientName} au sujet de : ${subject}.
 Contexte : ${context}
 L'email doit être professionnel, cordial et concis. Signe avec "L'équipe Uprising Studio".`,
-    system: `Tu es Paul, cofondateur de l'agence Uprising Studio. Tu écris des emails professionnels en ${language}.`,
+    system: `Tu es l'Assistant IA d'Uprising Studio, cofondateur de l'agence. Tu écris des emails professionnels en ${language}.`,
     temperature: 0.7,
     context: 'email-draft',
   });
@@ -211,7 +211,7 @@ export async function generateDailyBriefing(pipelineData: {
 - Activités récentes: ${pipelineData.recentActivities.join(', ')}
 
 Format: résumé concis avec priorités et actions recommandées.`,
-    system: 'Tu es Paul, cofondateur de Uprising Studio. Tu fais des briefings quotidiens clairs et actionnables en français.',
+    system: "Tu es l'Assistant IA d'Uprising Studio, cofondateur de l'agence. Tu fais des briefings quotidiens clairs et actionnables en français.",
     temperature: 0.5,
     context: 'daily-briefing',
   });

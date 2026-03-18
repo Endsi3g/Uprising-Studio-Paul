@@ -1,6 +1,6 @@
 # Déploiement : Cloudflare & Sentry
 
-Ce document explique comment mettre en production Paul avec un certificat SSL gratuit via Cloudflare et monitorer les erreurs avec Sentry.
+Ce document explique comment mettre en production l'Assistant Uprising AI avec un certificat SSL gratuit via Cloudflare et monitorer les erreurs avec Sentry.
 
 ## 1. Cloudflare (DNS & SSL)
 
@@ -15,7 +15,7 @@ Ce document explique comment mettre en production Paul avec un certificat SSL gr
 3. Va dans la section **DNS > Records**
 4. Ajoute un enregistrement **A** :
    - Type : `A`
-   - Name : `paul` (ou l'URL que tu veux, ex: `paul.uprising-studio.com`)
+   - Name : `assistant` (ou l'URL que tu veux, ex: `assistant.uprising-studio.com`)
    - IPv4 address : `[L'IP de ton VPS]`
    - Proxy status : **Proxied (Nuage orange activé)**
 5. Sauvegarde.

@@ -1,7 +1,7 @@
-# Paul — AI Co-founder & Agency Pipeline
+# Uprising AI "Assistant" — AI Co-founder & Agency Pipeline
 
 <div align="center">
-  <img src="https://img.shields.io/badge/version-1.0.0-blue.svg" alt="Version 1.0.0">
+  <img src="https://img.shields.io/badge/version-1.1.3-blue.svg" alt="Version 1.1.3">
   <img src="https://img.shields.io/badge/Next.js-14-black.svg?logo=next.js" alt="Next.js">
   <img src="https://img.shields.io/badge/Ollama-Local_LLM-white.svg" alt="Ollama">
   <img src="https://img.shields.io/badge/Discord-Bot-5865F2.svg?logo=discord" alt="Discord">
@@ -9,14 +9,14 @@
 
 <br>
 
-**Paul** est un cofondateur IA virtuel construit pour **Uprising Studio**. Alimenté par le moteur d'agents [NanoClaw](https://github.com/mizvekov/nanoclaw), des modèles LLM locaux (Ollama) et une architecture microservices full-stack, Paul gère le pipeline des clients, génère des briefings quotidiens et s'intègre directement au flux de l'équipe sur Discord.
+**Uprising AI "Assistant"** est un cofondateur IA virtuel construit pour **Uprising Studio**. Alimenté par le moteur d'agents [NanoClaw](https://github.com/mizvekov/nanoclaw), des modèles LLM locaux (Ollama) et une architecture microservices full-stack, l'Assistant gère le pipeline des clients, génère des briefings quotidiens et s'intègre directement au flux de l'équipe sur Discord.
 
 ---
 
 ## 🌟 Fonctionnalités
 
 - **Système d'Agent IA (NanoClaw)** : Exécute des flux de travail autonomes et se souvient des contextes d'Uprising Studio.
-- **Intégration Discord** : Interagis avec Paul dans ton serveur (envoi/réception de requêtes et actions).
+- **Intégration Discord** : Interagis avec l'Assistant dans ton serveur (envoi/réception de requêtes et actions).
 - **Backend LLM Local (Ollama)** : Sans frais d'API cloud. Génère des brouillons d'emails, résume les données et chat avec une IA hébergée localement.
 - **Web Dashboard (Next.js)** : Interface premium "dark theme" pour gérer tes clients, projets, factures et suivre l'activité IA.
 - **Pipeline de CRM** : Base de données PostgreSQL structurée via Prisma pour tracker tes leads.

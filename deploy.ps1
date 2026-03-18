@@ -1,8 +1,8 @@
-# Script de déploiement pour Project Paul (Uprising Studio) sur un VPS
+# Script de déploiement pour Uprising AI Assistant (Uprising Studio) sur un VPS
 # Récupère le dernier code, build les images Docker et lance la production.
 
 Write-Host "========================================================" -ForegroundColor Cyan
-Write-Host "🚀 Déploiement de Paul (Uprising Studio) en production..." -ForegroundColor Cyan
+Write-Host "🚀 Déploiement de l'Assistant AI (Uprising Studio) en production..." -ForegroundColor Cyan
 Write-Host "========================================================" -ForegroundColor Cyan
 Write-Host ""
 
