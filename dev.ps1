@@ -8,7 +8,7 @@ Write-Host ""
 
 # 1. Démarrage de Docker (Postgres & Ollama)
 Write-Host "[1/4] 🐳 Démarrage des conteneurs (Postgres & Ollama)..." -ForegroundColor Yellow
-docker-compose --profile dev up -d
+docker-compose -f infra/docker/docker-compose.yml up -d postgres ollama
 
 Write-Host "Attente de l'initialisation de la base de données (3s)..." -ForegroundColor DarkGray
 Start-Sleep -Seconds 3
@@ -18,6 +18,7 @@ Write-Host "[2/4] 🗄️ Vérification et application des migrations Prisma..."
 Push-Location services\actions-service
 # npm install (au cas où ce n'est pas fait)
 npm install --silent
+if (Test-Path "..\..\.env") { Copy-Item "..\..\.env" ".env" -Force }
 npx prisma migrate dev --schema=../../db/schema.prisma
 npx prisma generate --schema=../../db/schema.prisma
 Pop-Location
@@ -37,7 +38,7 @@ Start-Process pwsh -ArgumentList "-NoExit -Title `"Paul NanoClaw (Discord)`" -Co
 Write-Host ""
 Write-Host "[4/4] ✅ Démarrage terminé !" -ForegroundColor Green
 Write-Host "========================================================" -ForegroundColor Cyan
-Write-Host "👉 Web Console : http://localhost:3000" -ForegroundColor White
+Write-Host "👉 Web Console : http://localhost:3002" -ForegroundColor White
 Write-Host "👉 API Health  : http://localhost:4000/api/health" -ForegroundColor White
 Write-Host "👉 Discord Bot : Connecté (vérifie la fenêtre NanoClaw)" -ForegroundColor White
 Write-Host "========================================================" -ForegroundColor Cyan

@@ -31,19 +31,18 @@ if (-not (Test-Path "nanoclaw/.env")) {
 Write-Host "[3/5] 🏗️ Build des images Docker (API, Web Console, NanoClaw)..." -ForegroundColor Yellow
 # Pas de profile "dev" ici, on lance le profile par défaut défini dans docker-compose.yml 
 # qui inclut les 3 services + db + ollama.
-docker-compose build --no-cache
+docker-compose -f infra/docker/docker-compose.yml build --no-cache
 
 # 4. Lancement des services
 Write-Host "[4/5] 🐳 Démarrage des conteneurs en mode détaché..." -ForegroundColor Yellow
-docker-compose up -d
+docker-compose -f infra/docker/docker-compose.yml up -d
 
 Write-Host "Attente du démarrage de la base de données (5s)..." -ForegroundColor DarkGray
 Start-Sleep -Seconds 5
 
 # 5. Migrations de base de données
 Write-Host "[5/5] 🗄️ Application des migrations Prisma en production..." -ForegroundColor Yellow
-# On lance le script de migration défini dans infra/scripts
-bash infra/scripts/migrate-db.sh
+docker compose -f infra/docker/docker-compose.yml exec -T actions-service npx prisma migrate deploy
 
 Write-Host ""
 Write-Host "[5/5] ✅ Déploiement terminé avec succès !" -ForegroundColor Green
