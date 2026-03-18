@@ -37,8 +37,7 @@ Le projet est divisé en plusieurs sous-systèmes :
 ### Prérequis
 - Docker & Docker Compose
 - Node.js 20+
-- Un Token Bot Discord
-- Ollama (Optionnel si tu utilises le conteneur Docker inclus)
+- [Ollama](https://ollama.com) installé localement (pour la commande `ollama launch`)
 
 ### 1. Variables d'environnement
 Copie le modèle et remplis tes secrets :
@@ -47,39 +46,73 @@ cp .env.example .env
 cp nanoclaw/.env.example nanoclaw/.env
 ```
 
-### 2. Démarrage Docker Local
-```bash
-docker-compose --profile dev up -d
-```
-Cela démarrera Postgres, Ollama, et l'API. (Note : Le premier téléchargement d'Ollama peut être long).
-
-### 3. Migrations de base de données
-```bash
-cd services/actions-service
-npm install
-npx prisma migrate dev --schema=../../db/schema.prisma
+### 2. Démarrage de la Stack (dev.ps1)
+Utilise le script interactif pour démarrer les services et choisir ton agent :
+```powershell
+./dev.ps1
 ```
 
-### 4. Démarrer les interfaces
-```bash
-# Dans un terminal : API
-cd services/actions-service && npm run dev
-
-# Dans le deuxième terminal : Web Console
-cd web-console && npm install && npm run dev
-
-# Dans le troisième terminal : NanoClaw (bot Discord)
-cd nanoclaw && npm install && npm run dev
-```
-
-La console web sera disponible sur [http://localhost:3000](http://localhost:3000).
+Le script vous proposera de choisir entre **NanoClaw** (Agent Discord local) et **OpenClaw** (Agent Cloud).
 
 ---
 
-## 📚 Documentation
-- [Configuration de NanoClaw & Discord](docs/INSTALL_NANOCLAW.md)
-- [Déploiement VPS & Cloudflare](docs/INSTALL_INFRA.md)
-- [Architecture](docs/ARCHITECTURE.md)
+## 🐳 Ollama & Docker
+
+Le projet utilise Ollama comme backend LLM. Vous pouvez le faire tourner via Docker :
+
+### CPU Only
+```bash
+docker run -d -v ollama:/root/.ollama -p 11434:11434 --name ollama ollama/ollama
+```
+
+### NVIDIA GPU
+```bash
+docker run -d --gpus=all -v ollama:/root/.ollama -p 11434:11434 --name ollama ollama/ollama
+```
+
+---
+
+## 💎 Onyx (Web UI)
+
+Onyx est la plateforme Web UI principale du projet, remplaçant Open WebUI. Elle est située dans `/web-console`.
+
+### Installation d'Onyx
+```bash
+cd web-console
+curl -fsSL https://raw.githubusercontent.com/onyx-dot-app/onyx/main/deployment/docker_compose/install.sh > install.sh
+chmod +x install.sh
+./install.sh
+```
+
+### Configuration
+Onyx est configuré pour communiquer avec Ollama via `http://localhost:11434`. Assurez-vous que le conteneur Ollama est démarré.
+
+---
+
+## 🤖 OpenClaw (Agent IA)
+
+OpenClaw est un assistant IA personnel puissant. Le projet est configuré pour l'utiliser avec les modèles Cloud d'Ollama pour une performance optimale.
+
+### Commande de lancement (via dev.ps1 ou CLI)
+```bash
+ollama launch openclaw --model kimi-k2.5:cloud
+```
+
+### Fonctionnalités Cloud & Web Search
+- **Modèles Cloud** : Accédez à des modèles comme `kimi-k2.5:cloud` sans GPU local. (Nécessite `ollama signin`).
+- **Web Search & Fetch** : OpenClaw et Onyx peuvent utiliser les APIs Ollama pour la recherche web via `https://ollama.com/api/web_search`.
+- **Skills** : Les compétences additionnelles sont disponibles dans `/awesome-openclaw-skills`.
+
+---
+
+## 🏗️ Architecture
+- `/nanoclaw` : Moteur d'agent local (Discord).
+- `/openclaw` : Moteur d'agent cloud.
+- `/web-console` : Interface Onyx.
+- `/services/actions-service` : API backend.
+- `/awesome-openclaw-skills` : Bibliothèque de skills OpenClaw.
+
+---
 
 ## 🔖 Licence
 Propriété intellectuelle de **Uprising Studio**. Tous droits réservés.
