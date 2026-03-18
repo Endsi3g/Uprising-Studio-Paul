@@ -1,0 +1,68 @@
+services:
+  nanoclaw:
+    build:
+      context: ../../
+      dockerfile: infra/docker/Dockerfile.nanoclaw
+    container_name: nanoclaw
+    restart: always
+    volumes:
+      - ../../nanoclaw/memory:/app/memory
+      - ../../nanoclaw/config:/app/config
+      - ../../nanoclaw/logs:/app/logs
+    environment:
+      - OLLAMA_HOST=http://ollama:11434
+    depends_on:
+      - ollama
+      - postgres
+
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama
+    restart: always
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+
+  postgres:
+    image: postgres:15-alpine
+    container_name: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: paul_user
+      POSTGRES_PASSWORD: paul_password
+      POSTGRES_DB: paul_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  actions-service:
+    build:
+      context: ../../
+      dockerfile: infra/docker/Dockerfile.actions
+    container_name: actions-service
+    restart: always
+    environment:
+      - DATABASE_URL=postgresql://paul_user:paul_password@postgres:5432/paul_db?schema=public
+      - SENTRY_DSN=${SENTRY_DSN}
+    depends_on:
+      - postgres
+
+  web-console:
+    build:
+      context: ../../
+      dockerfile: infra/docker/Dockerfile.web
+    container_name: web-console
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      - ACTIONS_SERVICE_URL=http://actions-service:3000
+      - SENTRY_DSN=${SENTRY_DSN}
+    depends_on:
+      - actions-service
+
+volumes:
+  ollama_data:
+  postgres_data:

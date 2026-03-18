@@ -1,0 +1,71 @@
+name: Paul CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_USER: paul
+          POSTGRES_PASSWORD: paulpassword
+          POSTGRES_DB: paul_db
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        submodules: recursive # Important pour pull NanoClaw !
+
+    - name: Use Node.js 20
+      uses: actions/setup-node@v3
+      with:
+        node-version: '20.x'
+        cache: 'npm'
+        cache-dependency-path: |
+          services/actions-service/package-lock.json
+          web-console/package-lock.json
+          nanoclaw/package-lock.json
+
+    - name: Install dependencies (Actions Service)
+      working-directory: ./services/actions-service
+      run: npm install
+
+    - name: Prisma Generate & Migrate
+      working-directory: ./services/actions-service
+      env:
+        DATABASE_URL: postgresql://paul:paulpassword@localhost:5432/paul_db
+      run: |
+        npx prisma generate --schema=../../db/schema.prisma
+        npx prisma migrate deploy --schema=../../db/schema.prisma
+
+    - name: Build Actions Service
+      working-directory: ./services/actions-service
+      run: npm run build
+
+    - name: Install & Build Web Console
+      working-directory: ./web-console
+      run: |
+        npm install
+        npm run build
+      env:
+        NEXT_PUBLIC_API_URL: http://localhost:4000
+
+    - name: Install & Build NanoClaw
+      working-directory: ./nanoclaw
+      run: |
+        npm install
+        npm run build

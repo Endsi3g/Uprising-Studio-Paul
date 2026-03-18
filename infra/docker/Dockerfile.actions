@@ -1,0 +1,9 @@
+FROM node:20-slim
+WORKDIR /app
+COPY services/actions-service/package*.json ./
+RUN npm install
+COPY services/actions-service ./
+COPY db ./db
+RUN npx prisma generate || true
+EXPOSE 3000
+CMD ["npm", "run", "dev"]
