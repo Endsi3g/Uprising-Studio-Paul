@@ -31,7 +31,7 @@ Pop-Location
 Write-Host "[3/4] Démarrage des services (API, Web)..." -ForegroundColor Yellow
 
 # Démarrer Actions Service (API) sur le port $API_PORT
-Start-Process powershell -ArgumentList "-NoExit -Title `"Paul API (Actions Service)`" -Command `"cd services/actions-service ; title 'Paul API (Actions Service)' ; npm run dev`""
+Start-Process powershell -ArgumentList "-NoExit", "-Command", "`$Host.UI.RawUI.WindowTitle='Paul API (Actions Service)'; cd services/actions-service; npm run dev"
 
 # Note: Onyx (Web Console) se gère via Docker ou le script d'installation dans /web-console
 Write-Host "💡 Note: Onyx (Web Console) doit être lancé via son système Docker dédié dans /web-console." -ForegroundColor DarkGray
@@ -45,10 +45,10 @@ $choice = Read-Host "Votre choix [1/2] (Défaut: 1)"
 
 if ($choice -eq "2") {
     Write-Host "🚀 Lancement de OpenClaw avec le modèle $OPENCLAW_MODEL..." -ForegroundColor Green
-    Start-Process powershell -ArgumentList "-NoExit -Title `"Paul OpenClaw`" -Command `"ollama launch openclaw --model $OPENCLAW_MODEL`""
+    Start-Process powershell -ArgumentList "-NoExit", "-Command", "`$Host.UI.RawUI.WindowTitle='Paul OpenClaw'; ollama launch openclaw --model $OPENCLAW_MODEL"
 } else {
     Write-Host "🚀 Lancement de NanoClaw..." -ForegroundColor Green
-    Start-Process powershell -ArgumentList "-NoExit -Title `"Paul NanoClaw (Discord)`" -Command `"cd nanoclaw ; title 'Paul NanoClaw (Discord)' ; npm run dev`""
+    Start-Process powershell -ArgumentList "-NoExit", "-Command", "`$Host.UI.RawUI.WindowTitle='Paul NanoClaw (Discord)'; cd nanoclaw; npm run dev"
 }
 
 Write-Host ""
