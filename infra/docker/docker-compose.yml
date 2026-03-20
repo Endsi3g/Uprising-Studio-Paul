@@ -29,9 +29,9 @@ services:
     container_name: postgres
     restart: always
     environment:
-      POSTGRES_USER: paul_user
-      POSTGRES_PASSWORD: paul_password
-      POSTGRES_DB: paul_db
+      POSTGRES_USER: uprising_user
+      POSTGRES_PASSWORD: uprising_password
+      POSTGRES_DB: uprising_db
     ports:
       - "5432:5432"
     volumes:
@@ -44,7 +44,7 @@ services:
     container_name: actions-service
     restart: always
     environment:
-      - DATABASE_URL=postgresql://paul_user:paul_password@postgres:5432/paul_db?schema=public
+      - DATABASE_URL=postgresql://uprising_user:uprising_password@postgres:5432/uprising_db?schema=public
       - SENTRY_DSN=${SENTRY_DSN}
     depends_on:
       - postgres

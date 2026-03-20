@@ -2,6 +2,20 @@
 
 Toutes les modifications notables apportées à ce projet seront documentées dans ce fichier.
 
+## [v1.1.3] - 2026-03-18
+
+**Rebranding — Uprising AI Assistant**
+
+Refonte complète de l'identité de l'assistant, passant de "Paul" à **Uprising AI Assistant**.
+
+### Changé
+- **Identité** : L'assistant s'appelle désormais "Uprising AI Assistant" ou "L'Assistant" dans toutes les interfaces (Web-Console, Discord, Prompts).
+- **Console Web** : Logo mis à jour de "P" vers "U", titres et messages d'état mis à jour pour refléter le nouveau branding.
+- **Prompts Système** : Mise à jour des prompts Ollama pour que l'IA se présente correctement.
+- **Infrastructure** : Noms d'images Docker et credentials SQL mis à jour pour plus de cohérence.
+- **Documentation** : Tous les guides d'installation et README mis à jour avec le nouveau nom.
+- **Sécurité** : `.env` retiré du tracking Git et ajouté au `.gitignore` pour protéger les secrets.
+
 ## [v1.0.0] - 2026-03-17
 
 **Release Initiale — Pipeline Paul AI**
